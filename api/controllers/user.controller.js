@@ -34,7 +34,7 @@ export const updateUser = async (req, res, next) => {
 }
 
 export const deleteUser = async (req, res, next) => {
-    if (req.user.id !== req.params.id) return next(errorHandler(401, 'you can only delet your own account!'))
+    if (req.user.id !== req.params.id) return next(errorHandler(401, 'you can only delete your own account!'))
     try {
         await Users.findByIdAndDelete(req.params.id);
         res.clearCookie('access_token')
@@ -50,9 +50,9 @@ export const getUserListings = async (req, res, next) => {
             const listings = await Listing.find({ userRef: req.params.id });
             res.status(200).json(listings);
         } catch (error) {
-            next(error)
+            next(error);
         }
     } else {
-        return next(errorHandler(401, 'You can only view your own listings!'))
+        return next(errorHandler(401, 'You can only view your own listings!'));
     }
-}
+};
